@@ -1,0 +1,7 @@
+/home/easy_webrtc_server/CMakeFiles/rebuild_cache.dir
+/home/easy_webrtc_server/CMakeFiles/publish.dir
+/home/easy_webrtc_server/CMakeFiles/picAnalyse.dir
+/home/easy_webrtc_server/CMakeFiles/rtp_src_example_pinjie.dir
+/home/easy_webrtc_server/CMakeFiles/rtp_src_example.dir
+/home/easy_webrtc_server/CMakeFiles/edit_cache.dir
+/home/easy_webrtc_server/CMakeFiles/rtc.dir

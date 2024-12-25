@@ -1,0 +1,1 @@
+/usr/bin/c++   -g  -O0 -Wall -g2 -ggdb  -rdynamic CMakeFiles/publish.dir/example/publish.cc.o  -o publish  librtc.a /home/muduo/build/lib/libmuduo_http.a /home/muduo/build/lib/libmuduo_net.a /home/muduo/build/lib/libmuduo_base.a -lsrtp2 -lssl -lcrypto -ldl -lpthread -lavformat -lavcodec -lavutil 

@@ -1,0 +1,77 @@
+<html>
+<style>
+  video {
+    border: 5px solid black;
+    width: 640px;
+    height: 480px;
+  }
+</style>
+
+<body>
+  Local: <br>
+  <video id="localVideo" autoplay></video><br>
+  Remote: <br>
+  <video id="remoteVideo" autoplay></video>
+
+  <script>
+    // stun和turn服务器
+    var iceServer = null;
+
+    // 创建PeerConnection实例 (参数为null则没有iceserver，即使没有stunserver和turnserver，仍可在局域网下通讯)
+    var local = new RTCPeerConnection;
+    var remote = new RTCPeerConnection;
+    // 发送ICE候选到其他客户端
+    local.onicecandidate = function (event) {
+      if (event.candidate !== null) {
+        remote.addIceCandidate(event.candidate);
+      }
+    };
+
+    remote.onicecandidate = function (event) {
+      if (event.candidate !== null) {
+        local.addIceCandidate(event.candidate);
+      }
+    };
+
+    // 如果检测到媒体流连接到本地，将其绑定到一个video标签上输出
+    remote.onaddstream = function (event) {
+      document.getElementById('remoteVideo').srcObject = event.stream;
+      console.log('Received remote stream');
+    };
+
+    // 发送offer和answer的函数，发送本地session描述
+    var sendOfferFn = function (desc) {
+      console.log(desc);
+      local.setLocalDescription(desc);
+      remote.setRemoteDescription(desc);
+      remote.createAnswer(sendAnswerFn, function (error) {
+        console.log('Failure callback: ' + error);
+      }
+      );
+    };
+
+    var sendAnswerFn = function (desc) {
+      console.log(desc);
+      remote.setLocalDescription(desc);
+      local.setRemoteDescription(desc);
+    };
+
+
+    navigator.mediaDevices.getDisplayMedia({ video: true })
+      .then(stream => {
+        //we have a stream, attach it to a feedback video element
+        document.getElementById('localVideo').srcObject = stream;
+        //向PeerConnection中加入需要发送的流
+        local.addStream(stream);
+        //如果是发起方则发送一个offer信令
+        local.createOffer(sendOfferFn, function (error) {
+          console.log('Failure callback: ' + error);
+        });
+      }, error => {
+        console.log("Unable to acquire screen capture", error);
+      });
+
+  </script>
+</body>
+
+</html>
