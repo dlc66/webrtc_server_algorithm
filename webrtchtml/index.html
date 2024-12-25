@@ -17,8 +17,12 @@
   <video id="vid" autoplay></video>
   <br>
   <p>ip_address</p>
-  <input id="input" type="text" name="ip_address" value="127.0.0.1">
+  <input id="input" type="text" name="ip_address" value="172.20.63.108">
+  <input id="input1" type="text" name="add" value="8004">
   <br>
+  
+
+  
   <button id="btn1">Call</button>
   <button id="btn2">Hang Up</button>
 </body>
@@ -27,7 +31,7 @@
   var btn1 = document.getElementById('btn1');
   var btn2 = document.getElementById('btn2');
   var input = document.getElementById('input');
-
+  var input1 = document.getElementById('input1');
   btn1.addEventListener('click', start);
   btn2.addEventListener('click', stop);
 
@@ -45,13 +49,14 @@
 
     var servers = null;
     var IP = input.value;
+    var add = input1.value;
     pc = new RTCPeerConnection(servers);
     console.log('Created remote peer connection object pc');
     pc.onicecandidate = iceCallback;
     pc.onaddstream = gotRemoteStream;
 
     xmlhttp = new XMLHttpRequest();
-    var addr = "http://" + IP + ":8000" + "/webrtc";
+    var addr = "http://" + IP + ":" +add+ "/webrtc";
     xmlhttp.onreadystatechange = function () {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         var res = xmlhttp.responseText;
