@@ -42,4 +42,5 @@ make
 * stun协议交互成功后，通过DtlsTransport进行dtls握手；交换密钥后就可以初始化SrtpChannel。此处没有通过签名验证客户端的证书，所以省略了前端返回sdp的步骤。  
 * 读取h264码流文件，通过ffmpeg生成rtp流，通过SrtpChannel加密，通过UdpSocket发送，前端就可以看到视频。  
 ## 致谢
-- 特别感谢 [库名](https://github.com/Mihawk086/easy_webrtc_server.git) 对本项目的支持。
+本库webrtc部分来源于easy_webrtc_server项目，作者修改了多线程bug，并添加了编解码与混合编程算法调用模板以及一些其他功能。
+- 特别感谢 [easy_webrtc_server](https://github.com/Mihawk086/easy_webrtc_server.git) 对本项目的支持。
